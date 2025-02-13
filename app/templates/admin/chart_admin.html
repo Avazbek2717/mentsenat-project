@@ -1,0 +1,46 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+
+<h1>Homiylar va Talabalar Statistikasi</h1>
+
+<canvas id="adminChart"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var ctx = document.getElementById("adminChart").getContext("2d");
+
+        var studentsCount = Number("{{ students_count }}");
+        var sponsorsCount = Number("{{ sponsors_count }}");
+
+        new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: ["Talabalar", "Homiylar"],
+                datasets: [{
+                    label: "Soni",
+                    data: [studentsCount, sponsorsCount],
+                    backgroundColor: ["#4CAF50", "#FF5733"], 
+                    borderColor: ["#388E3C", "#C70039"],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+{% endblock %}
