@@ -15,6 +15,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 from app.views import DashboardStatsAPIView,SponsorDetailAPIView,StudentSponsorCreateAPIView,StudentListAPIView,DashboadGraphAPIView,StudentSponsorUpdateAPIView,SposorListAPIView,StudentCreate,StudentSponsor,SponsorListCreateAPIView,StudentUpdate
 from django.conf.urls.i18n import set_language
@@ -42,3 +44,7 @@ urlpatterns = [
 
 
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
